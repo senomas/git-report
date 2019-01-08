@@ -1,10 +1,10 @@
 {
-  "name": "p2plending-module",
+  "name": "git-report",
   "version": "0.5.0",
-  "description": "P2PLending",
+  "description": "git-report",
   "scripts": {},
   "author": "Senomas <agus@senomas.com>",
-  "license": "UNLICENSED",
+  "license": "GPL",
   "private": true,
   "dependencies": {
     "js-yaml": "^3.12.0",
