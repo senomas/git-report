@@ -1,6 +1,7 @@
 const shell = require("shelljs");
 const yaml = require("js-yaml");
 const fs = require("fs");
+const path = require("path");
 
 const slack = require("slack-notify")(process.env.SLACK_HOOK);
 
@@ -16,7 +17,11 @@ const base = ".";
 const dates = [{ code: "7d", name: "7 days ago"}, { code: "24h", name: "24 hours ago"}];
 const reports = {};
 
-fs.readdirSync(base).forEach(mod => {
+fs.readdirSync(base).filter(mod => {
+  mod = path.join(base, mod);
+  return fs.lstatSync(mod).isDirectory() && fs.lstatSync(path.join(mod, ".git")).isDirectory();
+}).forEach(mod => {
+  mod = path.join(base, mod);
   const report = reports[mod] = {};
   let cmdl = `cd ${mod} && git fetch --all`;
   shell.echo(cmdl);
