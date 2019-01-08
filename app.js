@@ -16,11 +16,12 @@ function tabr(v, col=10) {
 const base = ".";
 const dates = [{ code: "7d", name: "7 days ago"}, { code: "24h", name: "24 hours ago"}];
 const reports = {};
-
-fs.readdirSync(base).filter(mod => {
+const modules = fs.readdirSync(base).filter(mod => {
   mod = path.join(base, mod);
-  return fs.lstatSync(mod).isDirectory() && fs.lstatSync(path.join(mod, ".git")).isDirectory();
-}).forEach(mod => {
+  return fs.lstatSync(mod).isDirectory() && fs.existsSync(path.join(mod, ".git"));
+});
+
+modules.forEach(mod => {
   mod = path.join(base, mod);
   const report = reports[mod] = {};
   let cmdl = `cd ${mod} && git fetch --all`;
